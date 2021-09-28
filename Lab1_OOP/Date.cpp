@@ -76,14 +76,28 @@ int Date::getWeekInYear()
 {
 	if (!isCorrectDate())
 		return -1;
-	Date copy(year, 1, 4, 0, 0, 0);
-	const Date c_copy(year, month, day, hour, minute, second), week(0,0,7,0,0,0);
+	Date copy(year, 1, 4, 23, 59, 59);
+	const Date c_copy(year, month, day, hour, minute, second), c_week(0, 0, 7, 0, 0, 0), c_day(0, 0, 1, 0, 0, 0);
+
+	Date copy2; copy2 = c_copy;
+	while (copy2.getDayOfWeek() != 6) //6 - sunday
+	{
+		if (copy2.month == 1 && copy2.day == 4)
+		{
+			return 1;
+		}
+		copy2 = copy2 + c_day;
+	}
+
+	
 	if (month == 1 && day < 4)
 		copy.year--;
-	int ans = 0;
+	int ans = 1;
+	while (copy.getDayOfWeek() != 6) //6 - sunday
+		copy = copy + c_day;
 	while (copy <= c_copy)
 	{
-		copy = copy + week;
+		copy = copy + c_week;
 		ans++;
 	}
 	return ans;
