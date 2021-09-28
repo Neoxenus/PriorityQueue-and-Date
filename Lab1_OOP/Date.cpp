@@ -84,10 +84,6 @@ int Date::getWeekInYear()
 	while (copy <= c_copy)
 	{
 		copy = copy + week;
-		/*if (copy.month == 6)
-		{
-			
-		}*/
 		ans++;
 	}
 	return ans;
@@ -172,12 +168,15 @@ Date operator+ (const Date& d1, const Date& d2)
 	ans.day += (d2.day + ans.hour / 24);
 	ans.hour %= 24;
 
-	int pmonth = ans.day / ans.getDaysInMonth();
+	ans.day--;
+	int pmonth = ans.day / (ans.getDaysInMonth());
 	ans.day %= ans.getDaysInMonth();
 	ans.month += (d2.month + pmonth);
-
+	ans.month--;
 	ans.year += (d2.year + ans.month / 12);
 	ans.month %= 12;
+	ans.day++;
+	ans.month++;
 	return ans;
 }
 Date operator- (const Date& d1, const Date& d2)

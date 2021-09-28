@@ -25,7 +25,7 @@ int main()
 	
 	//cout<<d.getDayOfWeek();
 //	cout << d.getWeekInMonth();
-	//cout << d.getWeekInYear();
+	cout << d.getWeekInYear();
 	/*d = B.top(); B.pop();
 	d = d - B.top();
 	cout << d;*/
