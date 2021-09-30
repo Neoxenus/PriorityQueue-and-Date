@@ -207,62 +207,53 @@ Date operator- (const Date& d1, const Date& d2)
 		std::cout << "Left operand is not correct date\n";
 	//seconds
 	ans.second -= d2.second;
-	int buf = 0;
 	while (ans.second < 0)
 	{
 		ans.second += 60;
-		buf++;
+		ans.minute--;
 	}
 	//minutes
-	ans.minute -= (d2.minute + buf);
+	ans.minute -= (d2.minute);
 
-	buf = 0;
 	while (ans.minute < 0)
 	{
 		ans.minute += 60;
-		buf++;
+		ans.hour--;
 	}
 	//hours
-	ans.hour -= (d2.hour + buf);
+	ans.hour -= (d2.hour);
 
-	int bufday = 0;
 	while (ans.hour < 0)
 	{
 		ans.hour += 24;
-		bufday++;
+		ans.day--;
+	}
+
+	ans.day -= (d2.day);
+
+	//days
+	while (ans.day < 0)
+	{
+		ans.month--;
+		ans.day += ans.getDaysInMonth();
 	}
 	//mb months?
 	ans.month -= (d2.month);
-	int bufYear = 0;
-	while (ans.month <= 0)
+	while (ans.month < 0)
 	{
 		ans.month += 12;
-		bufYear++;
+		ans.year--;
 	}
 
 
-	//days
-	ans.day -= (d2.day + bufday);
-
-
-	buf = 0;
-	while (ans.day <= 0)
-	{
-		ans.month--;
-		if (ans.month <= 0)
-		{
-			ans.month += 12;
-			bufYear++;
-		}
-		ans.day += ans.getDaysInMonth();
-	}
+	
+	
 
 	
 
 	
 
-	ans.year -= (d2.year + bufYear);
+	ans.year -= (d2.year);
 
-	
 	return ans;
 }
